@@ -17,9 +17,13 @@ function mark(thisCell) {
     }
     ++turn;
     document.getElementById(thisCell).removeAttribute("onclick");
+    checkWinner();
+}
+
+function checkWinner() {
     for (var i = 1; i <= 3; ++i) {
-        var line1 = document.getElementById(i * 10 + 1).innerText, line2 = document.getElementById(i * 10 + 2).innerText, line3 = document.getElementById(i * 10 + 3).innerText;
-        var col1 = document.getElementById(1 * 10 + i).innerText, col2 = document.getElementById(2 * 10 + i).innerText, col3 = document.getElementById(3 * 10 + i).innerText;
+        var line1 = document.getElementById(i + "1").innerText, line2 = document.getElementById(i + "2").innerText, line3 = document.getElementById(i + "3").innerText;
+        var col1 = document.getElementById(10 + i).innerText, col2 = document.getElementById(20 + i).innerText, col3 = document.getElementById(30 + i).innerText;
         if ((col1 == col2 && col2 == col3) && (col1 == 'X' || col1 == 'O')) {
             document.getElementById("winnerMsg").innerHTML = "The winner is " + col1;
             restartGame();
@@ -27,6 +31,7 @@ function mark(thisCell) {
             document.getElementById("winnerMsg").innerHTML = "The winner is " + line1;
             restartGame();
         }
+
     }
     var diag1 = document.getElementById("11").innerText, diag2 = document.getElementById("22").innerText, diag3 = document.getElementById("33").innerText;
     var paralelDiag1 = document.getElementById("13").innerText, paralelDiag2 = document.getElementById("22").innerText, paralelDiag3 = document.getElementById("31").innerText;
