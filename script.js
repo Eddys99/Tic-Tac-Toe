@@ -22,26 +22,28 @@ function mark(thisCell) {
 
 function checkWinner() {
     for (var i = 1; i <= 3; ++i) {
-        var line1 = document.getElementById(i + "1").innerText, line2 = document.getElementById(i + "2").innerText, line3 = document.getElementById(i + "3").innerText;
-        var col1 = document.getElementById(10 + i).innerText, col2 = document.getElementById(20 + i).innerText, col3 = document.getElementById(30 + i).innerText;
-        if ((col1 == col2 && col2 == col3) && (col1 == 'X' || col1 == 'O')) {
-            document.getElementById("winnerMsg").innerHTML = "The winner is " + col1;
-            restartGame();
-        } else if ((line1 == line2 && line2 == line3) && (line1 == 'X' || line1 == 'O')) {
-            document.getElementById("winnerMsg").innerHTML = "The winner is " + line1;
-            restartGame();
+        var line = [], col = [], diag = [], paralelDiag = [];
+        for(var j = 1, stringPosition = 0; j <= 3; ++j, ++stringPosition) {
+            line[stringPosition] = document.getElementById(i + "" + j).innerText;
+            col[stringPosition] = document.getElementById(j + "" + i).innerText;
+            diag[stringPosition] = document.getElementById(j + "" + j).innerText;
+            paralelDiag[stringPosition] = document.getElementById(j + "" + (3 + 1 - j)).innerText;
         }
-
+        if ((line[0] == line[1] && line[1] == line[2]) && (line[0] == "X" || line[0] == "O")) {
+            document.getElementById("winnerMsg").innerHTML = "The winner is " + line[0];
+            restartGame();
+        } else if ((col[0] == col[1] && col[1] == col[2]) && (col[0] == "X" || col[0] == "O")) {
+            document.getElementById("winnerMsg").innerHTML = "The winner is " + col[0];
+            restartGame();
+        } else if ((diag[0] == diag[1] && diag[1] == diag[2]) && (diag[0] == "X" || diag[0] == "O")) {
+            document.getElementById("winnerMsg").innerHTML = "The winner is " + diag[0];
+            restartGame();
+        } else if ((paralelDiag[0] == paralelDiag[1] && paralelDiag[1] == paralelDiag[2]) && (paralelDiag[0] == "X" || paralelDiag[0] == "O")) {
+            document.getElementById("winnerMsg").innerHTML = "The winner is " + paralelDiag[0];
+            restartGame();
+        } 
     }
-    var diag1 = document.getElementById("11").innerText, diag2 = document.getElementById("22").innerText, diag3 = document.getElementById("33").innerText;
-    var paralelDiag1 = document.getElementById("13").innerText, paralelDiag2 = document.getElementById("22").innerText, paralelDiag3 = document.getElementById("31").innerText;
-    if ((diag1 == diag2 && diag2 == diag3) && (diag1 == 'X' || diag1 == 'O')) {
-        document.getElementById("winnerMsg").innerHTML = "The winner is " + diag1;
-        restartGame();
-    } else if ((paralelDiag1 == paralelDiag2 && paralelDiag2 == paralelDiag3) && (paralelDiag1== 'X' || paralelDiag1 == 'O')) {
-        document.getElementById("winnerMsg").innerHTML = "The winner is " + paralelDiag1;
-        restartGame();
-    } else if (moves == 9) {
+    if (moves == 9) {
         document.getElementById("winnerMsg").innerHTML = "Draw";
         restartGame();
     }
